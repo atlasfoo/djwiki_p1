@@ -8,3 +8,6 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
+def wiki_entry(request, title):
+    return render(request, "encyclopedia/wiki_entry.html", {"title": "Ejemplo", "body": "xdxdxd"})
