@@ -21,4 +21,4 @@ def wiki_entry(request, title):
     # cast the text to markdown
     entry_text = markdown2.markdown(entry)
 
-    return render(request, "encyclopedia/wiki_entry.html", {"title": title, "body": entry_text})
+    return render(request, "encyclopedia/wiki_entry.html", {"body": entry_text})
