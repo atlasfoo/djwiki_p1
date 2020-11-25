@@ -10,4 +10,7 @@ def index(request):
 
 
 def wiki_entry(request, title):
+    entry = util.get_entry(title=title)
+    if not entry:
+        return render(request, "encyclopedia/not_found.html")
     return render(request, "encyclopedia/wiki_entry.html", {"title": "Ejemplo", "body": "xdxdxd"})
