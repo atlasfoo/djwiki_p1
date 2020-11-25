@@ -5,10 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
-
     <section>
-        {{ body }}
+        {{ body |safe}}
     </section>
 
 {% endblock %}
