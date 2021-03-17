@@ -2,6 +2,7 @@ import markdown2
 from django.shortcuts import render, redirect
 
 from . import util
+from .forms import EntryForm
 
 
 def index(request):
@@ -41,3 +42,12 @@ def search(request):
     filtered_entries = [entry for entry in all_entries if entry.lower().startswith(query.lower())]
 
     return render(request, "encyclopedia/results.html", {"result": filtered_entries})
+
+
+def create_entry(request):
+    """Creates a new entry or shows the create form"""
+    if request.method == 'POST':
+        print("post")
+    else:
+        form = EntryForm()
+        return render(request, "encyclopedia/entry_form.html", {"form": form})
