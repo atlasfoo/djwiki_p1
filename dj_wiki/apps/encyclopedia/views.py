@@ -23,7 +23,7 @@ def wiki_entry(request, title):
     # cast the text to markdown
     entry_text = markdown2.markdown(entry)
 
-    return render(request, "encyclopedia/wiki_entry.html", {"body": entry_text})
+    return render(request, "encyclopedia/wiki_entry.html", {"title": title, "body": entry_text})
 
 
 def search(request):
@@ -60,3 +60,25 @@ def create_entry(request):
     else:
         form = EntryForm()
         return render(request, "encyclopedia/entry_form.html", {"form": form})
+
+
+def edit_entry(request, title):
+    if request.method == 'POST':
+        edited_entry = EntryForm(request.POST)
+        if edited_entry.is_valid():
+            # create the entry
+            util.save_entry(edited_entry.cleaned_data['title'], edited_entry.cleaned_data['entry'])
+            messages.success(request, 'The entry was updated successfully')
+            return redirect('index')
+        else:
+            messages.error(request, "Entry couldn't be updated")
+            return render(request, "encyclopedia/entry_form.html", {"form": edited_entry})
+    else:
+        entry = util.get_entry(title)
+        if not entry:
+            messages.error(request, "The requested entry does not exist")
+            return redirect('index')
+
+        form = EntryForm({'title': title, 'entry': entry})
+        return render(request, "encyclopedia/entry_form.html", {"form": form})
+
