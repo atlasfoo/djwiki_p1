@@ -1,4 +1,6 @@
+import random
 import markdown2
+
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -63,6 +65,8 @@ def create_entry(request):
 
 
 def edit_entry(request, title):
+    """Edit a entry title"""
+
     if request.method == 'POST':
         edited_entry = EntryForm(request.POST)
         if edited_entry.is_valid():
@@ -82,3 +86,12 @@ def edit_entry(request, title):
         form = EntryForm({'title': title, 'entry': entry})
         return render(request, "encyclopedia/entry_form.html", {"form": form})
 
+
+def random_entry(request):
+    """Gets and shows a random entry"""
+
+    # look for full list
+    all_entries = util.list_entries()
+    # get a random entry from list
+    rand_entry = random.choice(all_entries)
+    return redirect('wiki_entry', rand_entry)
