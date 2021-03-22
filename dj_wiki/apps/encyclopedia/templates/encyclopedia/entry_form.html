@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Add a new Entry</h1>
-    <div class="row d-flex justify-content-center">
+    <h2>Add a new Entry</h2>
+    <div class="row d-flex mt-4">
         <div class="col-sm-6">
             <form action="{% url 'create' %}" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                     {{ form.as_p }}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
 
         </div>

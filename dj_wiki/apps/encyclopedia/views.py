@@ -47,7 +47,13 @@ def search(request):
 def create_entry(request):
     """Creates a new entry or shows the create form"""
     if request.method == 'POST':
-        print("post")
+        new_entry = EntryForm(request.POST)
+        if new_entry.is_valid():
+            # create the entry
+            util.save_entry(new_entry.title, new_entry.entry)
+            return redirect('index')
+        else:
+            return render(request, "encyclopedia/entry_form.html", {"form": new_entry})
     else:
         form = EntryForm()
         return render(request, "encyclopedia/entry_form.html", {"form": form})
