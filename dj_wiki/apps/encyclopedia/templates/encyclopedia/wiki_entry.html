@@ -8,5 +8,8 @@
     <section>
         {{ body |safe}}
     </section>
+    <section>
+        <a href="{% url 'edit' title %}">Edit entry...</a>
+    </section>
 
 {% endblock %}
