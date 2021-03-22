@@ -1,4 +1,5 @@
 import markdown2
+from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from . import util
@@ -50,7 +51,8 @@ def create_entry(request):
         new_entry = EntryForm(request.POST)
         if new_entry.is_valid():
             # create the entry
-            util.save_entry(new_entry.title, new_entry.entry)
+            util.save_entry(new_entry.cleaned_data['title'], new_entry.cleaned_data['entry'])
+            messages.success(request, 'The entry was saved successfully')
             return redirect('index')
         else:
             return render(request, "encyclopedia/entry_form.html", {"form": new_entry})
