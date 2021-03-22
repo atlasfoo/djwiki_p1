@@ -10,10 +10,12 @@
     <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
 </head>
 <body style="width: 100%">
+
 {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            <li{% if message.tags %} class="alert alert-{{ message.tags }} " {% else %}
+                                     class="alert alert-primary" {% endif %} >{{ message }}</li>
         {% endfor %}
     </ul>
 {% endif %}

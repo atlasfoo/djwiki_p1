@@ -6,6 +6,16 @@ body {
     overflow-x: hidden;
 }
 
+body ul.messages{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body ul.messages li{
+    margin: .5em;
+}
+
 code {
     white-space: pre;
 }

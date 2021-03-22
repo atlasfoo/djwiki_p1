@@ -55,6 +55,7 @@ def create_entry(request):
             messages.success(request, 'The entry was saved successfully')
             return redirect('index')
         else:
+            messages.error(request, "Entry couldn't be saved")
             return render(request, "encyclopedia/entry_form.html", {"form": new_entry})
     else:
         form = EntryForm()
