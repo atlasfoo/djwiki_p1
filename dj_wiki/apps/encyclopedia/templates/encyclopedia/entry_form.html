@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Add a new Entry</h2>
+    <h2>{{ action }} Entry</h2>
     <div class="row d-flex mt-4">
         <div class="col-sm-6">
             <form action="{% url 'create' %}" method="post">
