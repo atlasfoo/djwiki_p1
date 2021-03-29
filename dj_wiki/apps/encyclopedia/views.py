@@ -58,10 +58,10 @@ def create_entry(request):
             return redirect('index')
         else:
             messages.error(request, "Entry couldn't be saved")
-            return render(request, "encyclopedia/entry_form.html", {"form": new_entry})
+            return render(request, "encyclopedia/entry_form.html", {"form": new_entry, "action": "Add"})
     else:
         form = EntryForm()
-        return render(request, "encyclopedia/entry_form.html", {"form": form})
+        return render(request, "encyclopedia/entry_form.html", {"form": form, "action": "Add"})
 
 
 def edit_entry(request, title):
@@ -76,7 +76,7 @@ def edit_entry(request, title):
             return redirect('index')
         else:
             messages.error(request, "Entry couldn't be updated")
-            return render(request, "encyclopedia/entry_form.html", {"form": edited_entry})
+            return render(request, "encyclopedia/entry_form.html", {"form": edited_entry, "action": "Edit"})
     else:
         entry = util.get_entry(title)
         if not entry:
@@ -84,7 +84,8 @@ def edit_entry(request, title):
             return redirect('index')
 
         form = EntryForm({'title': title, 'entry': entry})
-        return render(request, "encyclopedia/entry_form.html", {"form": form})
+        form.fields['title'].widget.attrs['readonly'] = True 
+        return render(request, "encyclopedia/entry_form.html", {"form": form, "action": "Edit"})
 
 
 def random_entry(request):
